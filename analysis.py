@@ -26,14 +26,14 @@ def createChart(data, name):
     )
 
 
-def loadData(z):
+def loadData(zipcode):
     import os
     cur_dir= os.path.dirname(__file__)
     nyc_restaurnat = json.load(open(os.path.join(cur_dir, 'nyc_restaurants_by_cuisine.json'), 'r'))
     # android_reviews = json.load(open(os.path.join(cur_dir, 'nyc_restaurants_by_cuisine.json'), 'r'))
 
-    df_res = pd.DataFrame([(nyc_restaurnat[i].get('cuisine'), nyc_restaurnat[i].get('perZip').get(z))
-                       for i in range(len(nyc_restaurnat))],
+    df_res = pd.DataFrame([(nyc_restaurnat[i].get('cuisine'), nyc_restaurnat[i].get('perZip').get(zipcode))
+                       for i in range(len(nyc_restaurnat))][:25],
                       columns=['cuisine', 'total'])
     df_res.dropna()
 
@@ -41,4 +41,3 @@ def loadData(z):
     #                           for app,reviews in android_reviews.items()
     #                           for review in reviews), columns=['name', 'rating', 'content'])
     return df_res
- 
